@@ -10,8 +10,11 @@ class Api::V1::SubscriptionsController < ApplicationController
 
   def update
     @sub = Subscription.find_by_id(params[:id])
-    @sub.update(subscription_params)
-    render json: SubscriptionSerializer.new(@sub), status: 200
+    if @sub.update(subscription_params)
+      render json: SubscriptionSerializer.new(@sub), status: 200
+    else
+      render json: @sub.errors.full_messages, status: 422
+    end
   end
 
   private
