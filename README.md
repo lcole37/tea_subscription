@@ -76,7 +76,7 @@ POST '/api/v1/subscriptions'
 
  ```
  {
-  "title": “Mark’s Herbal",
+  "title": “Mark G’s Herbal",
   "price": 15,
   "frequency": "monthly",
   "customer_id": {{customer_id}},
@@ -92,7 +92,7 @@ POST '/api/v1/subscriptions'
          "id": "4",
          "type": "subscription",
          "attributes": {
-             "title": “Mark’s Herbal",
+             "title": “Mark G’s Herbal",
              "status": "active",
              "price": 15,
              "frequency": "monthly",
