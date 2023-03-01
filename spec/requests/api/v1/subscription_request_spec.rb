@@ -90,10 +90,61 @@ RSpec.describe 'Tea Subscription Request' do
           expect(subscription.status).to_not eq(previous_status)
           expect(subscription.status).to eq('canceled')
         end
+
+        it "returns error if subscription is not canceled" do
+          id = create(:subscription, status: 0).id
+          previous_status = Subscription.last.status
+          subscription_params = { status: 2 }
+
+          headers = { 'CONTENT_TYPE' => 'application/json' }
+
+          patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: subscription_params)
+
+          expect(response).to_not be_successful
+          expect(response).to have_http_status(422)
+        end
       end
 
+      context 'customer subscriptions' do
+        it "can retrieve subscriptions belonging to a customer" do
+          get "/api/v1/customers/#{customer_1.id}/subscriptions"
+
+          response_body = JSON.parse(response.body, symbolize_names: true)
+          customer_subscriptions = response_body[:data]
+
+          expect(response).to be_successful
+          expect(response).to have_http_status(200)
+          customer_subscriptions.each do |s|
+            expect(s).to have_key(:id)
+            expect(s[:id]).to be_a String
+            expect(s).to have_key(:type)
+            expect(s[:type]).to be_a String
+            expect(s[:type]).to eq('subscription')
+            expect(s).to have_key(:attributes)
+            expect(s[:attributes]).to be_a Hash
+            expect(s[:attributes][:title]).to be_a String
+            expect(s[:attributes][:status]).to be_a String
+            expect(s[:attributes][:price]).to be_an Integer
+            expect(s[:attributes][:frequency]).to be_a String
+            expect(s[:attributes][:tea_id]).to be_an Integer
+            expect(s[:attributes][:customer_id]).to be_an Integer
+            expect(s[:attributes][:customer_id]).to eq(customer_1.id)
+            expect(s[:attributes]).to_not have_key(:created_at)
+          end
+        end
+
+        it "returns 404 if customer is not found" do
+          id = 31415926
+
+          get "/api/v1/customers/#{id}/subscriptions"
+
+          response_body = JSON.parse(response.body, symbolize_names: true)
+          subscriptions = response_body[:data]
+
+          expect(response).to have_http_status(404)
+          expect(subscriptions).to be_nil
+        end
+      end
     end
-
-
   end
 end
