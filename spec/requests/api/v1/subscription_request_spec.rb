@@ -69,8 +69,28 @@ RSpec.describe 'Tea Subscription Request' do
         expect(response).to have_http_status(422)
         expect(Subscription.count).to eq(9)
       end
+    end
 
+    describe ".update" do
+      context 'subscription cancellation' do
+        it "can cancel a customer subscription" do
+          id = create(:subscription, status: 0).id
+          previous_status = Subscription.last.status
+          subscription_params = { status: 1 }
 
+          headers = { 'CONTENT_TYPE' => 'application/json' }
+
+          patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: subscription_params)
+          subscription = Subscription.find_by(id: id)
+
+          new_sub = Subscription.last
+
+          expect(response).to be_successful
+          expect(response).to have_http_status(200)
+          expect(subscription.status).to_not eq(previous_status)
+          expect(subscription.status).to eq('canceled')
+        end
+      end
 
     end
 
