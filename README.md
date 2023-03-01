@@ -2,7 +2,7 @@
 
 ## Tea Subscription
 
-[![ruby][ruby]][ruby-url] [![ror][ror]][ror-url] [![Postgres][Postgres]][Postgres-url] [![RSpec][RSpec]][RSpec-url] [![Atom][Atom]][Atom-url]
+ [![ror][ror]][ror-url] [![Postgres][Postgres]][Postgres-url] [![RSpec][RSpec]][RSpec-url] [![Atom][Atom]][Atom-url]
 
 #### Contributors: [Lucas Colwell](https://github.com/lcole37)
 
