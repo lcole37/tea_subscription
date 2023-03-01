@@ -51,6 +51,29 @@ RSpec.describe 'Tea Subscription Request' do
         expect(new_sub.customer_id).to eq(subscription_params[:customer_id])
         expect(new_sub.status).to eq('active')
       end
+
+      it "returns 422 if cannot be created" do
+        subscription_params = {
+          title: "",
+          price: 7,
+          frequency: 3,
+          tea_id: tea.id,
+          customer_id: customer.id
+        }
+
+        headers = { 'CONTENT_TYPE' => 'application/json' }
+
+        post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: subscription_params)
+
+        expect(response).to_not be_successful
+        expect(response).to have_http_status(422)
+        expect(Subscription.count).to eq(9)
+      end
+
+
+
     end
+
+
   end
 end

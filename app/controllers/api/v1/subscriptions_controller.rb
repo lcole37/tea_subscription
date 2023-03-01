@@ -4,7 +4,7 @@ class Api::V1::SubscriptionsController < ApplicationController
     if subscription.save
       render json: SubscriptionSerializer.new(subscription), status: 201
     else
-      render json: {error: 'Error'}, status: 404
+      render json: {error: 'Error'}, status: 422
     end
   end
 
