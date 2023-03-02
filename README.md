@@ -20,7 +20,6 @@ A rails backend API; Tea Subscription was built with test-driven development, wi
 
 - [Architecture](#architecture)
 - [Database setup](#database-setup)
-  - [Required API keys](#required-keys)
 - [Endpoints](#endpoints)
   - [Create Subscription](#create-sub)
   - [Cancel Subscription](#cancel-sub)
