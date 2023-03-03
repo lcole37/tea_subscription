@@ -208,7 +208,7 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
              "id": "2",
              "type": "subscription",
              "attributes": {
-                 "title": “Pat H’s Green",
+                 "title": “Mark G's Green",
                  "status": "active",
                  "price": 14,
                  "frequency": "one_time",
@@ -220,7 +220,7 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
              "id": "3",
              "type": "subscription",
              "attributes": {
-                 "title": “Rose T’s Black Ceylon”,
+                 "title": “Mark G’s Black”,
                  "status": "active",
                  "price": 10,
                  "frequency": "weekly",
@@ -232,6 +232,13 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
  }
  ```
 
+ ## Further Development possibilities
+ - Given more time
+   - Further error handling and edgecase testing
+   - subscription to allow multiple teas
+   - implement customer authentication and authorization
+   - implement admin privileges
+   - Consume a tea API for real data
 
 ---
 <p align="right">(<a href="#contents">back to top</a>)</p>
