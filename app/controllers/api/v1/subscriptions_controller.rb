@@ -4,17 +4,14 @@ class Api::V1::SubscriptionsController < ApplicationController
     if subscription.save
       render json: SubscriptionSerializer.new(subscription), status: 201
     else
-      render json: {error: 'Error'}, status: 422
+      render json: {error: 'Field left blank'}, status: 422
     end
   end
 
   def update
     @sub = Subscription.find_by_id(params[:id])
-    if @sub.update(subscription_params)
-      render json: SubscriptionSerializer.new(@sub), status: 200
-    else
-      render json: @sub.errors.full_messages, status: 422
-    end
+    @sub.update(subscription_params)
+    render json: SubscriptionSerializer.new(@sub), status: 200
   end
 
   private
